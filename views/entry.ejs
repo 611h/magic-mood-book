@@ -1,0 +1,39 @@
+<%- include('header') %>
+
+  <p>
+    Which one discribes your mood best? Click on one of the options below,
+    and I'll prepare some words for you.
+  </p>
+  <ul>
+    <li><a class="submit-mood" data-mood="joy">Joy</a></li>
+    <li><a class="submit-mood" data-mood="trust">Trust</a></li>
+    <li><a class="submit-mood" data-mood="fear">Fear</a></li>
+    <li><a class="submit-mood" data-mood="surprise">Surprise</a></li>
+    <li><a class="submit-mood" data-mood="sadness">Sadness</a></li>
+    <li><a class="submit-mood" data-mood="disgust">Disgust</a></li>
+    <li><a class="submit-mood" data-mood="anger">Anger</a></li>
+    <li><a class="submit-mood" data-mood="anticipation">Anticipation</a></li>
+  </ul>
+
+  <script nonce="<%= nonce %>">
+    document.querySelectorAll('.submit-mood').forEach(function (element) {
+      element.addEventListener('click', function () {
+        const mood = this.dataset.mood;
+        console.log(`Selected mood: ${mood}`);
+        fetch('/entry', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ mood: mood }),
+        })
+          .then(response => response.json())
+          .then(data => {
+            console.log('Success:', data);
+            window.location.href = '/quote?message=' + encodeURIComponent(data.message);
+          });
+      });
+    });
+  </script>
+
+  <% - include('footer') %>

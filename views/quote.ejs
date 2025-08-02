@@ -1,0 +1,16 @@
+<%- include('header') %>
+
+  <div id="quote" class="terminal-alert terminal-alert-primary">
+  </div>
+
+  <script nonce="<%= nonce %>">
+    const quote = document.getElementById('quote');
+    const message = new URLSearchParams(window.location.search).get('message');
+    if (message) {
+      quote.textContent = message;
+    } else {
+      quote.textContent = 'No message provided.';
+    }
+  </script>
+
+  <%- include('footer') %>

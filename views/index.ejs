@@ -1,0 +1,23 @@
+<%- include('header') %>
+  <div class="terminal-card">
+    <header>Magic Mood Book</header>
+    <div>
+      <p>
+        Welcome to the Magic Mood Book! This is a place where you can track your
+        moods and get some great words prepared for your day.
+      </p>
+      <p align="center">
+        <button id="gotoEntry" class="btn btn-default">
+          Get Started!
+        </button>
+      </p>
+    </div>
+  </div>
+
+  <script nonce="<%= nonce %>">
+    document.getElementById('gotoEntry').addEventListener('click', function () {
+      window.location.href = '/entry';
+    });
+  </script>
+
+  <% - include('footer') %>
