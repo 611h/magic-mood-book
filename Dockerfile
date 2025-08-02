@@ -7,9 +7,6 @@ ENV PORT=3000
 
 WORKDIR $APP
 
-# Use bash
-SHELL ["/bin/bash", "--login", "-c"]
-
 # Install git
 RUN yum install -y git
 
@@ -27,6 +24,6 @@ RUN curl -fsSL https://ollama.com/install.sh | sh &&\
 RUN curl -sL https://rpm.nodesource.com/setup_lts.x | bash - &&\
     yum install -y nodejs && npm install
 
-ENTRYPOINT [ "npm", "run", "start" ]
+ENTRYPOINT [ "sh", "./entrypoint.sh" ]
 
 EXPOSE $PORT
