@@ -3,9 +3,9 @@ import crypto from 'crypto';
 import helmet from 'koa-helmet';
 import { koaBody } from 'koa-body';
 import logger from 'koa-logger';
-import { default as ollama } from 'ollama';
-import Router from '@koa/router';
 import views from '@ladjs/koa-views';
+
+import web_router from './routers/web.js';
 
 const PORT = process.env.PORT || 3000;
 
@@ -38,50 +38,7 @@ app.use(views('./views', {
   }
 }));
 
-// Use Router
-const router = new Router();
-
-router.get('/', async (ctx, next) => {
-  await ctx.render('index.ejs', {
-    nonce: ctx.res.nonce,
-  });
-  await next();
-});
-
-router.get('/entry', async (ctx, next) => {
-  await ctx.render('entry.ejs', {
-    nonce: ctx.res.nonce,
-  });
-  await next();
-}).post('/entry', async (ctx, next) => {
-  const { mood } = ctx.request.body;
-  if (!mood) {
-    ctx.throw(400, 'Mood is required');
-  }
-  response = await ollama.chat({
-      model: 'gemma3:1b',
-      messages: [{
-        role: 'user',
-        content: `
-          Give me some inpiring words according to my recent moods: ${mood}.
-          Don't ask me anything, just give me one and only one quote.
-        `,
-      }]
-  });
-  ctx.body = {
-    message: response.message.content,
-  };
-  await next();
-});
-
-router.get('/quote', async (ctx, next) => {
-  await ctx.render('quote.ejs', {
-    nonce: ctx.res.nonce,
-  });
-  await next();
-});
-
-app.use(router.routes()).use(router.allowedMethods());
+app.use(web_router.routes()).use(web_router.allowedMethods());
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);

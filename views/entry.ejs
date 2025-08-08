@@ -20,7 +20,7 @@
       element.addEventListener('click', function () {
         const mood = this.dataset.mood;
         console.log(`Selected mood: ${mood}`);
-        fetch('/entry', {
+        fetch('/api/entry', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
