@@ -18,6 +18,11 @@
   <script nonce="<%= nonce %>">
     document.querySelectorAll('.submit-mood').forEach(function (element) {
       element.addEventListener('click', function () {
+        document.getElementsByTagName('body')[0].innerHTML = `
+          <div id="quote" class="terminal-alert terminal-alert-primary">
+            Preparing your words... Please wait.
+          </div>
+        `;
         const mood = this.dataset.mood;
         console.log(`Selected mood: ${mood}`);
         fetch('/api/entry', {

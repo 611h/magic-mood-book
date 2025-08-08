@@ -6,6 +6,7 @@ import logger from 'koa-logger';
 import views from '@ladjs/koa-views';
 
 import web_router from './routers/web.js';
+import api_router from './routers/api.js';
 
 const PORT = process.env.PORT || 3000;
 
@@ -39,6 +40,7 @@ app.use(views('./views', {
 }));
 
 app.use(web_router.routes()).use(web_router.allowedMethods());
+app.use(api_router.routes()).use(api_router.allowedMethods());
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);

@@ -16,7 +16,7 @@ router
       await next();
       return;
     }
-    response = await ollama.chat({
+    const response = await ollama.chat({
         model: 'gemma3:1b',
         messages: [{
           role: 'user',
@@ -24,7 +24,7 @@ router
             Give me some inpiring words according to my recent moods: ${mood}.
             Don't ask me anything, just give me one and only one quote.
           `,
-        }]
+        }],
     });
     ctx.body = {
       message: response.message.content,
