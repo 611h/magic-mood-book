@@ -1,11 +1,11 @@
-const Koa = require('koa');
-const crypto = require('crypto');
-const helmet = require('koa-helmet');
-const { koaBody } = require('koa-body');
-const logger = require('koa-logger');
-const { default: ollama } = require('ollama');
-const Router = require('@koa/router');
-const views = require('@ladjs/koa-views');
+import Koa from 'koa';
+import crypto from 'crypto';
+import helmet from 'koa-helmet';
+import { koaBody } from 'koa-body';
+import logger from 'koa-logger';
+import { default as ollama } from 'ollama';
+import Router from '@koa/router';
+import views from '@ladjs/koa-views';
 
 const PORT = process.env.PORT || 3000;
 
@@ -32,7 +32,7 @@ app.use(helmet({
 app.use(logger());
 
 // Use ejs for templating
-app.use(views(__dirname + '/views', {
+app.use(views('./views', {
   map: {
     ejs: 'ejs'
   }
